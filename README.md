@@ -2,20 +2,20 @@
 
 ## Backend
 
-config
-| - dbconnect.js // kết nối database
-controller // chứa các file chịu trách nhiệm xử lý các yêu cầu đến và trả lời phản hồi cho khách hàng.
-| - user.js // xử lý yêu cầu liên quan đến người dùng. VD: cập nhật thông tin người dùng, ...
-| - auth.js // xử lý yêu cầu liên quan tới bảo mật tài khoản. VD: đăng ký, đăng nhập, quên mật khẩu, ...
-| - todo.js // xử lý các yêu cầu liên quan tới công việc cơ bản CRUD
-enum
-| - statusCode.js // chứa các mã http code
-middleware // chứa các file xử lý giữa vòng đời req-res
-| - errorHandle.js // xử lý bắt lỗi
-| - verifyToken.js // Xác thực người dùng qua token (jwt)
-model // chứa các model: user, todo
-route // định tuyến các đường dẫn api
-utils // chứa các hàm hỗ trợ như: sendmail để gửi mail....
+config  
+| - dbconnect.js // kết nối database  
+controller // chứa các file chịu trách nhiệm xử lý các yêu cầu đến và trả lời phản hồi cho khách hàng.  
+| - user.js // xử lý yêu cầu liên quan đến người dùng. VD: cập nhật thông tin người dùng, ...  
+| - auth.js // xử lý yêu cầu liên quan tới bảo mật tài khoản. VD: đăng ký, đăng nhập, quên mật khẩu, ...  
+| - todo.js // xử lý các yêu cầu liên quan tới công việc cơ bản CRUD  
+enum  
+| - statusCode.js // chứa các mã http code  
+middleware // chứa các file xử lý giữa vòng đời req-res  
+| - errorHandle.js // xử lý bắt lỗi  
+| - verifyToken.js // Xác thực người dùng qua token (jwt)  
+model // chứa các model: user, todo  
+route // định tuyến các đường dẫn api  
+utils // chứa các hàm hỗ trợ như: sendmail để gửi mail....  
 
 ## Frontend
 
