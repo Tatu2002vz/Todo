@@ -38,7 +38,8 @@ Các package cần thiết cho ứng dụng:
 - nodemailer: Package này cung cấp chức năng gửi email trong Node.js.
 - randomstring: Package này cung cấp các chức năng để tạo chuỗi ngẫu nhiên trong Node.js.
 
-### Lệnh cài đặt: npm install bcrypt express body-parser cors dotenv express express-async-handler jsonwebtoken mongoose nodemailer randomstring
+### Lệnh cài đặt: 
+> npm install bcrypt express body-parser cors dotenv express express-async-handler jsonwebtoken mongoose nodemailer randomstring
 
 ## Frontend
 
