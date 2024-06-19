@@ -27,7 +27,7 @@ const todoSchema = new mongoose.Schema(
     },
     status: {
       type: String,
-      enum: ["completed", "expired", "incomplete"],
+      enum: ["completed", "incomplete"],
       default: "incomplete",
     },
   },
