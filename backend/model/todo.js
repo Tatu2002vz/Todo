@@ -30,6 +30,10 @@ const todoSchema = new mongoose.Schema(
       enum: ["completed", "incomplete"],
       default: "incomplete",
     },
+    important: {
+      type: Boolean,
+      default: false,
+    }
   },
   {
     timestamps: true,

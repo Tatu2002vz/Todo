@@ -39,11 +39,13 @@ const login = asyncHandler(async (req, res) => {
     const rs = jwt.verify(token, process.env.SECRET_KEY);
     const { password, ...userData } = exist.toObject();
     return res.status(statusCode.OK).json({
-      token,
-      mes: userData,
+      mes: {...userData, token},
     });
   }
-  throw new Error("Password is incorrect");
+  // throw new Error("Password is incorrect");
+  res.status(statusCode.UNAUTHORIZED).json({
+    mes: "Password is incorrect",
+  });
 });
 
 const getCurrent = asyncHandler(async (req, res) => {
@@ -80,19 +82,20 @@ const forgotPassword = asyncHandler(async (req, res) => {
 
 const resetPassword = asyncHandler(async (req, res) => {
   const { id, token } = req.params;
-  const {password} = req.body
-  if(!token) throw new Error('Invalid token');
+  const { password } = req.body;
+  if (!token) throw new Error("Invalid token");
   const user = await User.findById(id);
-  if(token === user.resetPassToken.split('-')[0]) {
-    if(Date.now() > user.resetPassToken.split('-')[1]) throw new Error('Token expired');
+  if (token === user.resetPassToken.split("-")[0]) {
+    if (Date.now() > user.resetPassToken.split("-")[1])
+      throw new Error("Token expired");
     user.password = password;
-    user.resetPassToken = '';
+    user.resetPassToken = "";
     await user.save();
     return res.status(statusCode.OK).json({
-      mes: 'Change password successfully'
-    })
+      mes: "Change password successfully",
+    });
   }
-  throw new Error('Token incorrect');
+  throw new Error("Token incorrect");
 });
 module.exports = {
   register,
