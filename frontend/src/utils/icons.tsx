@@ -13,6 +13,12 @@ import { IoArrowBackSharp } from "react-icons/io5";
 import { ImCheckboxUnchecked } from "react-icons/im";
 import { ImCheckboxChecked } from "react-icons/im";
 import { FaDeleteLeft } from "react-icons/fa6";
+import { TbAlertOctagonFilled } from "react-icons/tb";
+import { FaCheckCircle } from "react-icons/fa";
+import { FaHome } from "react-icons/fa";
+import { BsThreeDots } from "react-icons/bs";
+import { TfiPencilAlt } from "react-icons/tfi";
+import { MdDeleteForever } from "react-icons/md";
 interface Icon {
     [key: string] : IconType
 }
@@ -31,7 +37,13 @@ const icons : Icon = {
     IoArrowBackSharp,
     ImCheckboxUnchecked,
     ImCheckboxChecked,
-    FaDeleteLeft
+    FaDeleteLeft,
+    TbAlertOctagonFilled,
+    FaCheckCircle,
+    FaHome,
+    BsThreeDots,
+    TfiPencilAlt,
+    MdDeleteForever
 }
 
 export default icons

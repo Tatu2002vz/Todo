@@ -4,6 +4,7 @@ import userReducer from "../features/user/userSlice";
 import themeReducer from '../features/theme/themeSlice'
 import statusFormReducer from '../features/statusForm/statusFormSlice'
 import todoReducer from '../features/todo/todoSlice'
+import searchReducer from '../features/search/searchSlice'
 import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import { thunk } from "redux-thunk";
@@ -19,7 +20,8 @@ export const store = configureStore({
     persistedReducer,
     statusFormReducer,
     todoReducer,
-    themePersist
+    themePersist,
+    searchReducer,
   },
   devTools: process.env.NODE_ENV !== "production",
   middleware: (getDefaultMiddleware) =>

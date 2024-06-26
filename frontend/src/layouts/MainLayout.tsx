@@ -8,7 +8,7 @@ import InputTask from "./components/InputTask";
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const { status } = useAppSelector(statusFormSelector);
   return (
-    <div className="dark">
+    <div className="light">
       <div className="grid grid-cols-3 max-w-[1280px] mx-auto p-5 gap-5 h-screen relative">
         <div className="col-span-1">
           <Navigation />

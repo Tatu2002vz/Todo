@@ -33,3 +33,19 @@ export const apiRegister = ({
       name,
     },
   });
+
+export const apiForgotPassword = (email: string) => axios({
+  url: 'forgotpassword',
+  method: 'POST',
+  data: {
+    email
+  }
+})
+
+export const apiResetPassword = ({id, token, password}: {id: string, token: string, password: string}) => axios({
+  url: `reset-password/${id}/${token}` ,
+  method: 'POST',
+  data: {
+    password
+  }
+})

@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import icons from "../utils/icons";
 import { useNavigate, useParams } from "react-router-dom";
 import { apiGetTodo, apiUpdateTodo } from "apis/todo";
-import { Todo } from "./Home";
 import { toast } from "react-toastify";
 import { formatInputTime } from "utils/formatTime";
+import { payload } from "layouts/components/InputTask";
 const {
   IoArrowBackSharp,
   ImStarEmpty,
@@ -12,13 +12,15 @@ const {
   ImCheckboxChecked,
   ImCheckboxUnchecked,
 } = icons;
-export interface TaskUpdate extends Todo {
+export interface Todo extends payload {
   important: boolean;
+  id: string;
+
 }
 const UpdateTask = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [task, setTask] = useState<TaskUpdate>({
+  const [task, setTask] = useState<Todo>({
     content: "",
     description: "",
     id: id || "",
@@ -26,7 +28,6 @@ const UpdateTask = () => {
     status: "",
     important: false,
   });
-  console.log(task);
   const getTodo = async (id: string | undefined) => {
     const fetchTodo = await apiGetTodo(id);
     if (fetchTodo.status === 200) {
@@ -46,7 +47,9 @@ const UpdateTask = () => {
   };
   const handleSubmit = async () => {
     const fetchUpdateTodo = await apiUpdateTodo(task);
-    console.log(fetchUpdateTodo);
+    if(fetchUpdateTodo.status === 200) {
+      toast('Cập nhật thành công!');
+    }
   };
   useEffect(() => {
     getTodo(id);
@@ -65,7 +68,7 @@ const UpdateTask = () => {
           </div>
           <div className="flex flex-col gap-10">
             <div>
-              <label htmlFor="content">Nhiệm vụ</label>
+              <label htmlFor="content" className="my-2 block">Nhiệm vụ</label>
               <textarea
                 className="border block w-full h-16 p-2"
                 name="content"
@@ -93,7 +96,7 @@ const UpdateTask = () => {
               />
             </div>
             <div>
-              <label htmlFor="description">Mô tả thêm (nếu có)</label>
+              <label htmlFor="description" className="my-2 block">Mô tả thêm (nếu có)</label>
               <textarea
                 className="border block w-full h-16 p-2"
                 name="description"
@@ -101,7 +104,7 @@ const UpdateTask = () => {
                 value={task.description}
                 placeholder="Nhập mô tả..."
                 onChange={(e) =>
-                  setTask((prev) => ({ ...prev, content: e.target.value }))
+                  setTask((prev) => ({ ...prev, description: e.target.value }))
                 }
               ></textarea>
             </div>

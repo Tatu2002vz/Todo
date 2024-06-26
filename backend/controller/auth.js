@@ -73,7 +73,7 @@ const forgotPassword = asyncHandler(async (req, res) => {
   }
 
   const subject = "Quên mật khẩu";
-  const html = `Vui lòng click vào link dưới đây để cập nhật lại mật khẩu của bạn. Link sẽ hết hạn sau 15 phút. <a href="${process.env.SERVER_URL}/reset-password/${user._id}/${randomToken}">Link</a>`;
+  const html = `Vui lòng click vào link dưới đây để cập nhật lại mật khẩu của bạn. Link sẽ hết hạn sau 15 phút. <a href="${process.env.SERVER_CLIENT}/reset-password/${user._id}/${randomToken}">Link</a>`;
   await sendMail({ to: email, subject, html });
   return res.status(statusCode.OK).json({
     mes: "Please check your email to continue!",

@@ -1,4 +1,4 @@
-import { apiLogin, apiRegister } from "apis/auth";
+import { apiForgotPassword, apiLogin, apiRegister } from "apis/auth";
 import { useForm } from "react-hook-form";
 import icons from "utils/icons";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
@@ -47,13 +47,21 @@ const FormLogin = () => {
       if (fetchLogin.status === 200) {
         // const { name, email, token } = fetchLogin.data.mes;
         dispatch(login(fetchLogin.data.mes));
-        toast("🦄 Đăng nhập thành công!", { autoClose: 2000 });
+        toast("Đăng nhập thành công!", { autoClose: 2000 });
         dispatch(closeForm());
-        navigate(0)
+        navigate(0);
+      } else {
+        toast("Sai tài khoản hoặc mật khẩu!");
       }
     }
     if (status === 3) {
-      // const { email } = data;
+      const { email } = data;
+      const fetchPassword = await apiForgotPassword(email);
+      if (fetchPassword.status === 200) {
+        toast("Vui lòng kiểm tra email để tiếp tục!");
+      } else {
+        toast("Email không tồn tại!");
+      }
     }
   };
 

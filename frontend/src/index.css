@@ -9,7 +9,8 @@
 }
 
 #root {
-  /* background-image: linear-gradient(to right, #00b4db, #0083b0); */
+  /* background: url('./assets//background.png') no-repeat center center fixed; */
+
 }
 
 input {
@@ -72,4 +73,11 @@ input {
   background: #33333300;
   border: thin solid #33333300;
   border-radius: 10px;
+}
+.light {
+  background: url('./assets//background.png') no-repeat center center fixed;
+  background-size: cover;
+}
+svg {
+  color: #666;
 }
