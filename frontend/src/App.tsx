@@ -4,13 +4,21 @@ import { useAppDispatch, useAppSelector } from "store/hooks";
 import { searchSelector } from "features/search/searchSlice";
 import { Fragment, useEffect } from "react";
 import { getTodoAsync } from "features/todo/asyncAction";
+import { getCurrent } from "features/user/asyncAction";
+import { clearMsg, userSelector } from "features/user/userSlice";
+import { toast } from "react-toastify";
 
 function App() {
   const { search } = useAppSelector(searchSelector);
-  console.log(search);
+  const { message } = useAppSelector(userSelector);
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(getTodoAsync({ search }));
+    dispatch(getCurrent());
+    if (message !== "") {
+      toast(message);
+      dispatch(clearMsg());
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search]);
   return (

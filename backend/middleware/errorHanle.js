@@ -8,7 +8,7 @@ const notFound = (req, res, next) => {
 
 const errHandle = (err, req, res, next) => {
   const stt =
-    res.statusCode === statusCode.OK ? statusCode.SERVER_ERROR : res.statusCode;
+    res.statusCode === statusCode.OK ? statusCode.BAD_REQUEST : res.statusCode;
   return res.status(stt).json({
     mes: err.message,
   });

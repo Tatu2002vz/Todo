@@ -49,3 +49,6 @@ export const apiResetPassword = ({id, token, password}: {id: string, token: stri
     password
   }
 })
+export const apiGetCurrent = () => axios({
+  url: `current`
+})

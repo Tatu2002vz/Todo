@@ -1,8 +1,10 @@
 import React from "react";
 import { Todo } from "./UpdateTask";
 import { Task } from "components";
-import { useAppSelector } from "store/hooks";
+import { useAppDispatch, useAppSelector } from "store/hooks";
 import { todoSelector } from "features/todo/todoSlice";
+import { userSelector } from "features/user/userSlice";
+import { showLogin } from "features/statusForm/statusFormSlice";
 
 const ImportantTask = () => {
   // const [todoList, setTodoList] = useState<Todo[]>([]);
@@ -22,30 +24,49 @@ const ImportantTask = () => {
   //   };
   //   getTodoExpired();
   // }, []);
-  const {todoImportant} = useAppSelector(todoSelector)
+  const { todoImportant } = useAppSelector(todoSelector);
+  const { token } = useAppSelector(userSelector);
+  const dispatch = useAppDispatch();
   return (
     <div>
-      <h1 className="font-bold text-lg">Công việc quan trọng</h1>
-      <div className="flex flex-col gap-3">
-        {todoImportant.length > 0 ? (
-          todoImportant.map((item: Todo, index: number) => {
-            return (
-              <Task
-                content={item.content}
-                expired={item.expired}
-                status={item.status === "completed"}
-                id={item.id}
-                importantProp={item.important}
-                key={index}
-              />
-            );
-          })
-        ) : (
-          <div className="text-center text-lg mt-3">
-            Không có công việc quan trọng nào
+      {token === "" ? (
+        <div className="flex justify-center items-center h-full">
+          Vui lòng{" "}
+          <span
+            className="text-btn-primary mx-1 italic cursor-pointer"
+            onClick={() => {
+              dispatch(showLogin());
+            }}
+          >
+            đăng nhập
+          </span>{" "}
+          để sử dụng
+        </div>
+      ) : (
+        <div>
+          <h1 className="font-bold text-lg">Công việc quan trọng</h1>
+          <div className="flex flex-col gap-3">
+            {todoImportant.length > 0 ? (
+              todoImportant.map((item: Todo, index: number) => {
+                return (
+                  <Task
+                    content={item.content}
+                    expired={item.expired}
+                    status={item.status === "completed"}
+                    id={item.id}
+                    importantProp={item.important}
+                    key={index}
+                  />
+                );
+              })
+            ) : (
+              <div className="text-center text-lg mt-3">
+                Không có công việc quan trọng nào
+              </div>
+            )}
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 };

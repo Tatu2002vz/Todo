@@ -7,8 +7,9 @@ import { showLogin } from "features/statusForm/statusFormSlice";
 import { toast } from "react-toastify";
 import { clearTodo, todoSelector } from "features/todo/todoSlice";
 import {  setSearch } from "features/search/searchSlice";
+import { useEffect, useState } from "react";
 const {
-  IoMdMenu,
+  IoMdClose,
   IoIosSearch,
   CiLogout,
   CiLogin,
@@ -17,18 +18,29 @@ const {
   FaHome,
   ImStarFull
 } = icons;
-const Navigation = () => {
+const Navigation = ({setShowNav}: {setShowNav?: React.Dispatch<React.SetStateAction<boolean>>}) => {
   const dispatch = useAppDispatch();
   const user = useAppSelector(userSelector);
+  const [keySearch, setKeySearch] = useState<string>('')
   const {todoCompleted, todoExpired, todoImportant, todo} = useAppSelector(todoSelector)
+  useEffect(() => {
+    const debounce = setTimeout(() => {
+      dispatch(setSearch(keySearch));
+    }, 1000)
+    return () => clearTimeout(debounce)
+  }, [keySearch, dispatch])
   return (
     <div className="h-full float rounded-lg overflow-hidden">
       <div className="bg-floating-background p-4  flex flex-col h-full">
         <div className="relative">
           <p className="font-semibold text-xl">Menu</p>
-          <IoMdMenu
+          <IoMdClose
             size={24}
-            className="absolute right-0 top-1/2 -translate-y-1/2 "
+            className="absolute right-0 top-1/2 -translate-y-1/2 hover:bg-red hover:text-white md:hidden"
+            onClick={() => {
+            
+              setShowNav && setShowNav(false)
+            }}
           />
         </div>
         <div className="relative py-4">
@@ -36,17 +48,18 @@ const Navigation = () => {
             type="text"
             placeholder="Search..."
             className="rounded-full w-full p-2"
+            value={keySearch}
             onChange={(e) => {
-              dispatch(setSearch(e.target.value));
+              setKeySearch(e.target.value)
             }}
           />
           <div className="absolute top-1/2 -translate-y-1/2 right-0 h-10 w-10 flex items-center justify-center">
-            <IoIosSearch size={24} className="" />
+            <IoIosSearch size={24} />
           </div>
         </div>
         <div className="grow">
           <p className="font-semibold uppercase">Tasks</p>
-          <Schedule Icon={FaHome} name="Tất cả" quantity={todo.length + todoCompleted.length + todoExpired.length + todoImportant.length} link={"/"} />
+          <Schedule Icon={FaHome} name="Tất cả" quantity={todo.length + todoCompleted.length + todoExpired.length} link={"/"} />
           <Schedule
             Icon={ImStarFull}
             name="Quan trọng"

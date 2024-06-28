@@ -15,6 +15,9 @@ export const searchSlice = createSlice({
     setSearch: (state, action) => {
       state.search = action.payload;
     },
+    clearSearch: (state) => {
+      state.search = "";
+    }
   },
 });
 export const { setSearch } = searchSlice.actions;

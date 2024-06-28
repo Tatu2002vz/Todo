@@ -13,8 +13,7 @@ instance.interceptors.request.use(
     const storage = localStorage.getItem("persist:root");
     if (typeof storage === "string") {
       const { token }: { token: string } = JSON.parse(storage);
-
-      if (token !== "")
+      if (token.replaceAll(`"`, "") !== "")
         config.headers = {
           Authorization: `Bearer ${token.replaceAll(`"`, "")}`,
         };

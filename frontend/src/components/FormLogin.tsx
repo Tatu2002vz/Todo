@@ -27,17 +27,18 @@ const FormLogin = () => {
     watch,
     formState: { errors },
   } = useForm();
-  console.log(status);
   const onSubmit = async (data: any) => {
     // console.log(data);
 
     if (status === 1) {
       const { email, password, name } = data;
       const fetchRegister = await apiRegister({ email, password, name });
-      console.log(fetchRegister);
       if (fetchRegister.status === 201) {
         toast("Đăng ký thành công!");
         dispatch(showLogin());
+      } else {
+        toast('Lỗi')
+        toast(fetchRegister?.data?.mes)
       }
     }
     if (status === 2) {
@@ -66,7 +67,7 @@ const FormLogin = () => {
   };
 
   return (
-    <div className="rounded-md text-black p-4 w-[400px]">
+    <div className="rounded-md text-black p-4 max-w-[400px] md:w-[400px]">
       <h1 className="text-center font-bold text-xl text-btn-primary">
         {status === 1
           ? "Đăng ký"
@@ -177,7 +178,7 @@ const FormLogin = () => {
               Quên mật khẩu?{" "}
             </div>
             <div>
-              Chưa có tài khoản?{" "}
+              <span className="hidden md:inline-block">Chưa có tài khoản?{" "}</span>
               <span
                 className="cursor-pointer text-btn-primary ml-1"
                 onClick={() => {

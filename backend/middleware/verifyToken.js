@@ -10,10 +10,12 @@ const verifyToken = (req, res, next) => {
       req.user = data;
       next();
     } catch (error) {
-        throw new Error('Invalid access token!')
+        return res.status(statusCode.UNAUTHORIZED).json({
+          mes: 'Invalid access token!'
+        })
     }
   } else {
-    return res.status(statusCode.UNAUTHORIZED).json({
+    return res.status(statusCode.BAD_REQUEST).json({
       mes: "Authentication required!",
     });
   }

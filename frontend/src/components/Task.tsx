@@ -5,8 +5,9 @@ import { NavLink } from "react-router-dom";
 import { apiCompleteTodo, apiDeleteTodo, apiMarkImportant } from "apis/todo";
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
-import { useAppDispatch } from "store/hooks";
+import { useAppDispatch, useAppSelector } from "store/hooks";
 import { getTodoAsync } from "features/todo/asyncAction";
+import { searchSelector } from "features/search/searchSlice";
 const {
   ImStarEmpty,
   ImStarFull,
@@ -33,6 +34,7 @@ const Task = ({
 }) => {
   const [importantState, setImportantState] = useState<boolean>(importantProp);
   const [showOption, setShowOption] = useState<boolean>(false);
+  const { search } = useAppSelector(searchSelector);
   const dispatch = useAppDispatch();
   // const navigate = useNavigate();
   const handleDelete = () => {
@@ -48,7 +50,7 @@ const Task = ({
         console.log(fetchDelete);
         if (fetchDelete.status === 200) {
           toast("Xóa thành công!");
-          dispatch(getTodoAsync({ search: "" }));
+          dispatch(getTodoAsync({ search }));
         }
       }
     });
@@ -68,8 +70,7 @@ const Task = ({
           id,
           status: strStatus,
         });
-        if (fetchComplete.status === 200)
-          dispatch(getTodoAsync({ search: "" }));
+        if (fetchComplete.status === 200) dispatch(getTodoAsync({ search }));
       }
     });
   };
@@ -82,6 +83,7 @@ const Task = ({
     if (fetchImportant.status !== 200) {
       toast("Đánh dấu quan trọng có lỗi. Thử lại sau!");
     }
+    dispatch(getTodoAsync({ search }));
   };
   return (
     <div
